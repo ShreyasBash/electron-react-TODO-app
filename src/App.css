@@ -1,6 +1,39 @@
-body {
-  background-color: #282c34;
+@keyframes configure-clockwise {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
+@keyframes configure-xclockwise {
+  0% {
+    transform: rotate(45deg);
+  }
+  25% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(-135deg);
+  }
+  75% {
+    transform: rotate(-225deg);
+  }
+  100% {
+    transform: rotate(-315deg);
+  }
+}
+
 .App {
   display: flex;
   justify-content: center;
@@ -8,62 +41,203 @@ body {
   flex-direction: column;
 }
 
-.formContainer {
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  background: #1d2630;
+}
+
+
+
+
+.SearchContainer {
+  position: fixed;
+  
+  /* margin-top: 50px; */
+  margin: auto;
+  
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100px;
+}
+.SearchContainer .search {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background:rgb(63,249,220);
+  border-radius: 50%;
+  transition: all 1s;
+  z-index: 4;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+}
+.SearchContainer .search:hover {
+  cursor: pointer;
+}
+.SearchContainer .search::before {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: 22px;
+  right: 0;
+  bottom: 0;
+  left: 22px;
+  width: 12px;
+  height: 2px;
+  background: white;
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+.SearchContainer .search::after {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: -5px;
+  right: 0;
+  bottom: 0;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.5s;
+}
+.SearchContainer input {
+  font-family: 'Inconsolata', monospace;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background: #F9F5FF;
+  color: #000000;
+  text-shadow: 0 0 10px #F9F5FF;
+  padding: 0 80px 0 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 25px 0 #F9F5FF, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
+  transition: all 1s;
+  opacity: 0;
+  z-index: 5;
+  font-weight: bolder;
+  letter-spacing: 0.1em;
+}
+.SearchContainer input:hover {
+  cursor: pointer;
+}
+.SearchContainer input:focus {
+  width: 300px;
+  opacity: 1;
+  cursor: text;
+}
+.SearchContainer input:focus ~ .search {
+  right: -250px;
+  background: #fb5b53;
+  z-index: 6;
+}
+.SearchContainer input:focus ~ .search::before {
+  top: 0;
+  left: 0;
+  width: 25px;
+}
+.SearchContainer input:focus ~ .search::after {
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 2px;
+  border: none;
+  background: white;
+  border-radius: 0%;
+  transform: rotate(-45deg);
+}
+.SearchContainer input::placeholder {
+  color: white;
+  opacity: 0.5;
+  font-weight: bolder;
+}
+
+.spinner-box {
+  width: 300px;
+  height: 300px;
+  display: none;
+  margin-top: -200px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+/* X-ROTATING BOXES */
+
+.configure-border-1 {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  position: absolute;
   display: flex;
   justify-content: center;
-  flex-flow: row;
   align-items: center;
-  margin-top: 5vh;
+  background: #fb5b53;
+  animation: configure-clockwise 3s ease-in-out 0s infinite alternate;
+}
+
+.configure-border-2 {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  left: -115px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(63,249,220);
+  transform: rotate(45deg);
+  animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
+}
+
+.configure-core {
   width: 100%;
-  color: white;
+  height: 100%;
+  background-color: #1d2630;
 }
 
-.formContainer .inputTODO {
-  height: 25px;
-  border-radius: 10px;
-  background-color: transparent;
-  border: green 2px solid;
-  color: white;
-  transition: 0.5s ease;
-}
-.formContainer .inputTODO:focus {
-  border: green 1px solid;
-  transform: scaleX(1.3);
-}
-
-.formContainer .addItem {
-  display: inline-block;
-  width: 100px;
-  height: 28px;
-
-  background-color: #0069ed;
-  border-radius: 5px;
-  /* padding: 1rem 2rem; */
-  /* border: 1px solid white; */
-  border: none;
-  margin-left: 50px;
-}
 
 .items-cont {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid white;
+  border: 1px solid rgb(63,249,220);
   border-radius: 10px;
   width: 70vw;
-  margin-top: 5%;
+  margin-top:50px;
   padding: 20px;
 }
 
 .item {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
+  /* flex-direction: row; */
   width: 100%;
+  color: #F9F5FF;
   margin: 1%;
-  background-color: rgb(92, 0, 128);
   border-radius: 6px;
   border: none;
   padding: 4px;
@@ -74,6 +248,19 @@ body {
   left: 0;
   /* position: absolute; */
 }
+
+.item .link {
+  color: white;
+  left: 0;
+  /* position: absolute; */
+}
+
+.item .snippet {
+  color: white;
+  left: 0;
+  /* position: absolute; */
+}
+
 .item .date {
   color: white;
   right: 0;
@@ -82,7 +269,7 @@ body {
 
 .item .delete {
   color: white;
-  background-color: red;
+  background-color: #fb5b53;
   border: none;
   border-radius: 3px;
   padding: 5px;

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import db from "./nedb/items";
 import "./App.css";
-import { SearchBox } from "./Components/SearchBox";
-import { SearchItems } from "./Components/SearchItems";
+import { ArchiveItems } from "./Components/ArchiveItems";
 
 function App() {
   const [items, setItems, loading] = useState([]);
@@ -22,10 +21,8 @@ function App() {
 
   return (
   <div className="App">
-      <SearchBox items={items} setItems={setItems} loading={loading} />
-      <SearchItems items={items} setItems={setItems} />
+      <ArchiveItems items={items} setItems={setItems} />
   </div>
-
   );
 }
 
